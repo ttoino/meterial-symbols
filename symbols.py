@@ -38,7 +38,7 @@ SYMBOLS: list[Symbol] = [
             "M15,6H9v0h6V6z"
         },
         characters={
-            0xF0000,
+            0xFF000,
             "battery",
             0xE1A4,
             "battery_full",
@@ -63,7 +63,7 @@ SYMBOLS: list[Symbol] = [
         path="M2,22h20V2L2,22z M20,20H6.83v0L20,6.83z",
         variants={100: "M2,22h20V2L2,22z M20,20h0V6.83L20,6.83z"},
         characters={
-            0xF0001,
+            0xFF001,
             0xE1B9,
             "network_cell",
             0xF0A8,
