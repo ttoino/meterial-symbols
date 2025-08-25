@@ -1,5 +1,7 @@
 """Generates the font."""
 
+from pathlib import Path
+
 from fontTools.designspaceLib import AxisDescriptor
 from fontTools.fontBuilder import FontBuilder
 from fontTools.misc.transform import Identity
@@ -21,6 +23,7 @@ from params import (
     FONT_SIZE,
     ICON_SIZE,
     NAME,
+    SAFE_NAME,
     STYLE,
     VERSION,
 )
@@ -161,10 +164,12 @@ def main() -> None:
     )
     font.setupPost()
 
-    font.save(f"dist/{NAME}.ttf")
+    Path("dist/").mkdir(exist_ok=True)
+
+    font.save(f"dist/{SAFE_NAME}.ttf")
 
     font.font.flavor = "woff2"
-    font.save(f"dist/{NAME}.woff2")
+    font.save(f"dist/{SAFE_NAME}.woff2")
 
 
 if __name__ == "__main__":

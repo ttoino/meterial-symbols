@@ -1,7 +1,10 @@
 """Defines some constants used in the creation of the font."""
 
+import re
+
 NAME = "Meterial Symbols"
 """The font name"""
+SAFE_NAME = re.sub(r"\W", "", NAME)
 STYLE = "Regular"
 """The font style"""
 VERSION = "1.0.0"
