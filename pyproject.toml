@@ -7,12 +7,17 @@ requires-python = ">= 3.13"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [{ name = "João Pereira", email = "me@toino.pt" }]
-dependencies = ["fonttools[woff] >= 4.59.1"]
 
 [dependency-groups]
-dev = ["tox", { include-group = "ruff" }, { include-group = "typing" }]
+dev = [
+    "tox",
+    { include-group = "build" },
+    { include-group = "ruff" },
+    { include-group = "typing" },
+]
+build = ["fonttools[woff] >= 4.59.1"]
 ruff = ["ruff"]
-typing = ["pyright"]
+typing = ["pyright", { include-group = "build" }]
 
 [tool.pyright]
 pythonVersion = "3.13"
@@ -31,20 +36,20 @@ ignore = ["COM812", "D203", "D212", "FIX"]
 
 [tool.tox]
 env_list = ["build", "format", "lint", "typecheck"]
+no_package = true
 
 [tool.tox.env.build]
+dependency_groups = ["build"]
 commands = [["python", "__main__.py"]]
 
 [tool.tox.env.format]
-skip_install = true
 dependency_groups = ["ruff"]
-commands = [["ruff", "format", "--check", ""]]
+commands = [["ruff", "format", "--check"]]
 
 [tool.tox.env.lint]
-skip_install = true
 dependency_groups = ["ruff"]
-commands = [["ruff", "check", "{posargs:.}"]]
+commands = [["ruff", "check"]]
 
 [tool.tox.env.typecheck]
 dependency_groups = ["typing"]
-commands = [["pyright", "{posargs:mopidy_marceline}"]]
+commands = [["pyright"]]
