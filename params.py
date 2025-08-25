@@ -1,6 +1,4 @@
-"""
-Defines some constants used in the creation of the font.
-"""
+"""Defines some constants used in the creation of the font."""
 
 NAME = "Meterial Symbols"
 """The font name"""
