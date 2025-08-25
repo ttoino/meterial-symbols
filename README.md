@@ -80,17 +80,28 @@ Using Meterial is much simpler, you just need to change the `PGRS` axis on the f
 ## Development
 
 Meterial uses Python and [fonttools](https://github.com/fonttools/fonttools) to generate the font.
-Use `pip` or your favorite package manager to install these dependencies, then move on to next chapters!
+Use `pip` or your favorite package manager to install these dependencies, then move on to the next chapters!
 
 ### Building
 
 To generate the fonts, just run the [`__main__.py`](__main__.py) file:
 
 ```shell
-python3 __main.py__
+python3 __main__.py
 ```
 
 This will create a `dist` folder with a `.ttf` and a `.woff2` file.
+
+### Verification
+
+This repository uses ruff and pyright to check the code.
+You should run these tools before pushing your code, to keep the coding style consistent.
+
+You can run these tools directly, through your favorite editor, or using tox:
+
+```shell
+python3 -m tox -e lint # or format or typecheck
+```
 
 ### Adding new symbols
 
