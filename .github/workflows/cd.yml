@@ -27,7 +27,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: dist/*.ttf
+          asset_path: dist/MeterialSymbols.ttf
           asset_name: MeterialSymbols.ttf
           asset_content_type: font/ttf
       - name: Upload WOFF2
@@ -36,7 +36,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: dist/*.woff2
+          asset_path: dist/MeterialSymbols.woff2
           asset_name: MeterialSymbols.woff2
           asset_content_type: font/woff2
       - name: Compress all results
@@ -47,6 +47,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: dist/*.zip
+          asset_path: dist/MeterialSymbols.zip
           asset_name: MeterialSymbols.zip
           asset_content_type: application/zip
