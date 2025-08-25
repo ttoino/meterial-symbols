@@ -1,5 +1,7 @@
 __pycache__/
 .direnv/
+.ruff_cache/
+.tox/
 .vscode/
 node_modules/
 dist/

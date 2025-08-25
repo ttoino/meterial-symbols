@@ -10,10 +10,12 @@
     in
     {
       devShells.${system}.default = pkgs.mkShell {
-        packages = [ 
-          (pkgs.python3.withPackages (pypkgs: [
-            pypkgs.fonttools
-          ] ++ pypkgs.fonttools.optional-dependencies.all))
+        packages = with pkgs; [
+          pyright
+          ruff
+          (python3.withPackages (pypkgs: with pypkgs; ([
+            fonttools
+          ] ++ fonttools.optional-dependencies.woff)))
         ];
       };
     };
