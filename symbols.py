@@ -85,5 +85,39 @@ SYMBOLS: list[Symbol] = [
             "signal_cellular_null",
         },
     ),
+    Symbol(
+        name="network_wifi",
+        path="M480,-120 L0,-600 Q95,-697, 219.5,-748.5 Q344,-800, 480,-800"
+        "Q617,-800, 741,-748.5 Q865,-697, 960,-600 Z"
+        "M116,-598 L480,-234 Q480,-234 480,-234 Q480,-234 480,-234"
+        "Q480,-234 480,-234 Q480,-234 480,-234"
+        "L844,-598 Q765,-658 672,-689 Q579,-720 480,-720"
+        "Q381,-720 288,-689 Q195,-658 116,-598 Z",
+        variants={
+            100: "M480,-120 L0,-600 Q95,-697, 219.5,-748.5 Q344,-800, 480,-800"
+            "Q617,-800, 741,-748.5 Q865,-697, 960,-600 Z"
+            "M116,-598 L116,-598 Q195,-658 288,-689 Q381,-720 480,-720"
+            "Q579,-720 672,-689 Q765,-658 844,-598"
+            "L844,-598 Q765,-658 672,-689 Q579,-720 480,-720"
+            "Q381,-720 288,-689 Q195,-658 116,-598"
+        },
+        characters={
+            0xFF002,
+            0xE1BA,
+            "network_wifi",
+            0xF0B0,
+            "signal_wifi_0_bar",
+            0xEBE4,
+            "network_wifi_1_bar",
+            0xEBD6,
+            "network_wifi_2_bar",
+            0xEBE1,
+            "network_wifi_3_bar",
+            0xE1D8,
+            "signal_wifi_4_bar",
+            0xF067,
+            "signal_wifi_statusbar_null",
+        },
+    ),
 ]
 """All the symbols the font supplies; order is significant and should not change"""
