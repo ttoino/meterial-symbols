@@ -12,8 +12,6 @@ VERSION = "1.0.0"
 AUTHOR = "Toino"
 """The font author"""
 
-ICON_SIZE = 24
-"""The size of the SVG canvas used to draw the icons"""
 FONT_SIZE = 960
 """The size of a character in font units, equivalent to `unitsPerEm`"""
 ASCENT = 1056

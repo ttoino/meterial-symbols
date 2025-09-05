@@ -5,7 +5,6 @@ from pathlib import Path
 from fontTools.designspaceLib import AxisDescriptor
 from fontTools.fontBuilder import FontBuilder
 from fontTools.misc.transform import Identity
-from fontTools.pens.cu2quPen import Cu2QuPen
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.svgLib.path import SVGPath
 from fontTools.ttLib.tables._g_l_y_f import Glyph
@@ -21,7 +20,6 @@ from params import (
     AXIS_TAG,
     DESCENT,
     FONT_SIZE,
-    ICON_SIZE,
     NAME,
     SAFE_NAME,
     STYLE,
@@ -35,23 +33,18 @@ def glyph_from_path(path: str) -> Glyph:
     svg = SVGPath.fromstring(
         f"""
             <svg xmlns="http://www.w3.org/2000/svg"
-                width="{ICON_SIZE}"
-                height="{ICON_SIZE}"
-                viewBox="0 0 {ICON_SIZE} {ICON_SIZE}"
+                viewBox="0 {-FONT_SIZE} {FONT_SIZE} {FONT_SIZE}"
             >
                 <path d="{path}" />
             </svg>
         """,
         # SVG coordinates are mirrored on the Y-axis
-        Identity.translate(0, FONT_SIZE).scale(
-            FONT_SIZE / ICON_SIZE, -FONT_SIZE / ICON_SIZE
-        ),
+        Identity.scale(1, -1),
     )
 
     ttpen = TTGlyphPen()
     # Fonts don't support cubic bezier curves
-    c2qpen = Cu2QuPen(ttpen, 1)
-    svg.draw(c2qpen)
+    svg.draw(ttpen)
 
     return ttpen.glyph()
 

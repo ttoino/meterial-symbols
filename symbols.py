@@ -12,7 +12,7 @@ class Symbol:
     path: str
     """
     The default glyph for this symbol;
-    should be an SVG path definition that fits in an `ICON_SIZE`-sided square
+    should be an SVG path definition that fits in a `FONT_SIZE`-sided square
     """
     variants: dict[int, str]
     """
@@ -29,13 +29,16 @@ class Symbol:
 SYMBOLS: list[Symbol] = [
     Symbol(
         name="battery",
-        path="M17,5v16c0,0.55-0.45,1-1,1H8c-0.55,0-1-0.45-1-1V5"
-        "c0-0.55,0.45-1,1-1h2V2h4v2h2C16.55,4,17,4.45,17,5z"
-        "M15,6H9v14h6V6z",
+        path="M320,-80 Q303,-80,291.5,-91.5 T280,-120 V-760"
+        "Q280,-777,291.5,-788.5 T320,-800 H400 V-880 H560 V-800 H640"
+        "Q657,-800,668.5,-788.5 T680,-760 V-120 Q680,-103,668.5,-91.5 T640,-80 H320 Z"
+        "M360,-160 H600 V-720 H360 V-160 Z",
         variants={
-            100: "M17,5v16c0,0.55-0.45,1-1,1H8c-0.55,0-1-0.45-1-1V5"
-            "c0-0.55,0.45-1,1-1h2V2h4v2h2C16.55,4,17,4.45,17,5z"
-            "M15,6H9v0h6V6z"
+            100: "M320,-80 Q303,-80,291.5,-91.5 T280,-120 V-760"
+            "Q280,-777,291.5,-788.5 T320,-800 H400 V-880 H560 V-800 H640"
+            "Q657,-800,668.5,-788.5 T680,-760 V-120"
+            "Q680,-103,668.5,-91.5 T640,-80 H320 Z"
+            "M360,-720 H600 V-720 H360 V-720 Z"
         },
         characters={
             0xFF000,
@@ -60,8 +63,10 @@ SYMBOLS: list[Symbol] = [
     ),
     Symbol(
         name="network_cell",
-        path="M2,22h20V2L2,22z M20,20H6.83v0L20,6.83z",
-        variants={100: "M2,22h20V2L2,22z M20,20h0V6.83L20,6.83z"},
+        path="M80,-80 L880,-880 V-80 H80 Z M800,-160 V-686 L273,-160 V-160 H800 Z",
+        variants={
+            100: "M80,-80 L880,-880 V-80 H80 Z M800,-160 V-686 H800 V-160 H800 Z"
+        },
         characters={
             0xFF001,
             0xE1B9,
