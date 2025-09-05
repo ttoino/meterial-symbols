@@ -110,7 +110,7 @@ To add new symbols just add a new entry to the `SYMBOLS` list in the [`symbols.p
 The parameters are explained in that file, but the gist of it is:
 
 - the `name` parameter can be anything you want, but should be somewhat descriptive;
-- the `path` parameter is an SVG path definition for the default version of the icon (i.e. when `PGRS` is 0). It should fit in a 24x24 square;
+- the `path` parameter is an SVG path definition for the default version of the icon (i.e. when `PGRS` is 0). It should fit in a 960x960 square;
 - the `variants` parameter defines the different versions of the icon for different values of `PGRS`. They should all be compatible with the default icon, by having the same number of contours and points in the same order;
 - the `characters` parameter defines the code-points and ligatures that should represent this icon.
 
