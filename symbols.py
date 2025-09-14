@@ -14,7 +14,7 @@ class Symbol:
     The default glyph for this symbol;
     should be an SVG path definition that fits in a `FONT_SIZE`-sided square
     """
-    variants: dict[int, str]
+    variants: dict[float, str]
     """
     The different variants for this symbol; the keys represent a point in our axis,
     and the values should be a path with same constraints as `path`

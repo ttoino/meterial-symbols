@@ -49,7 +49,7 @@ def glyph_from_path(path: str) -> Glyph:
     return ttpen.glyph()
 
 
-def tuple_variations(base: Glyph, variations: dict[int, str]) -> list[TupleVariation]:
+def tuple_variations(base: Glyph, variations: dict[float, str]) -> list[TupleVariation]:
     """Generate tuple variations from the base glyph, coordinates, and paths."""
     # We should only provide the needed deltas,
     # if we provide deltas for all points the font breaks (no idea why).
@@ -57,10 +57,10 @@ def tuple_variations(base: Glyph, variations: dict[int, str]) -> list[TupleVaria
     # neighboring points also get interpolated,
     # so we should also provide deltas for these neighbors.
 
-    variations = sorted(variations.items())
+    variations_list = sorted(variations.items())
     gvar: list[TupleVariation] = []
 
-    for i, (coord, path) in enumerate(variations):
+    for i, (coord, path) in enumerate(variations_list):
         glyph = glyph_from_path(path)
 
         last = 0
@@ -79,8 +79,8 @@ def tuple_variations(base: Glyph, variations: dict[int, str]) -> list[TupleVaria
 
             last = glyph.endPtsOfContours[j] + 1
 
-        prev = 0 if i == 0 else variations[i - 1][0]
-        nxt = 1 if i == len(variations) - 1 else variations[i + 1][0]
+        prev = 0 if i == 0 else variations_list[i - 1][0]
+        nxt = 1 if i == len(variations) - 1 else variations_list[i + 1][0]
 
         gvar.append(
             TupleVariation(
