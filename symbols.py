@@ -151,6 +151,14 @@ SYMBOLS: list[Symbol] = [
         },
         characters={
             0xFF003,
+            0xE04E,
+            "volume_mute",
+            0xE04D,
+            "volume_down",
+            0xE79C,
+            "volume_down_alt",
+            0xE050,
+            "volume_up",
         },
     ),
 ]
