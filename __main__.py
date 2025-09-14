@@ -49,44 +49,55 @@ def glyph_from_path(path: str) -> Glyph:
     return ttpen.glyph()
 
 
-def tuple_variation(base: Glyph, variation: tuple[int, str]) -> TupleVariation:
-    """Generate a tuple variation from the base glyph, coordinate, and path."""
-    glyph = glyph_from_path(variation[1])
-
+def tuple_variations(base: Glyph, variations: dict[int, str]) -> list[TupleVariation]:
+    """Generate tuple variations from the base glyph, coordinates, and paths."""
     # We should only provide the needed deltas,
     # if we provide deltas for all points the font breaks (no idea why).
     # If we provide points only for points that change,
     # neighboring points also get interpolated,
     # so we should also provide deltas for these neighbors.
 
-    last = 0
-    selected: set[int] = set()
+    variations = sorted(variations.items())
+    gvar: list[TupleVariation] = []
 
-    for i in range(glyph.numberOfContours):
-        for j in range(last, glyph.endPtsOfContours[i] + 1):
-            if glyph.coordinates[j] != base.coordinates[j]:
-                selected |= {
-                    # Previous point
-                    j - 1 if j > last else glyph.endPtsOfContours[i],
-                    j,
-                    # Next point
-                    j + 1 if j < glyph.endPtsOfContours[i] else last,
-                }
+    for i, (coord, path) in enumerate(variations):
+        glyph = glyph_from_path(path)
 
-        last = glyph.endPtsOfContours[i] + 1
+        last = 0
+        selected: set[int] = set()
 
-    return TupleVariation(
-        {AXIS_TAG: (0, (variation[0] - AXIS_MIN) / (AXIS_MAX - AXIS_MIN), 1)},
-        [
-            (
-                glyph.coordinates[i][0] - base.coordinates[i][0],
-                glyph.coordinates[i][1] - base.coordinates[i][1],
+        for j in range(glyph.numberOfContours):
+            for k in range(last, glyph.endPtsOfContours[j] + 1):
+                if glyph.coordinates[k] != base.coordinates[k]:
+                    selected |= {
+                        # Previous point
+                        k - 1 if k > last else glyph.endPtsOfContours[j],
+                        k,
+                        # Next point
+                        k + 1 if k < glyph.endPtsOfContours[j] else last,
+                    }
+
+            last = glyph.endPtsOfContours[j] + 1
+
+        prev = 0 if i == 0 else variations[i - 1][0]
+        nxt = 1 if i == len(variations) - 1 else variations[i + 1][0]
+
+        gvar.append(
+            TupleVariation(
+                {AXIS_TAG: (prev, coord, nxt)},
+                [
+                    (
+                        glyph.coordinates[i][0] - base.coordinates[i][0],
+                        glyph.coordinates[i][1] - base.coordinates[i][1],
+                    )
+                    if i in selected
+                    else None
+                    for i in range(len(glyph.coordinates))
+                ],
             )
-            if i in selected
-            else None
-            for i in range(len(glyph.coordinates))
-        ],
-    )
+        )
+
+    return gvar
 
 
 def main() -> None:
@@ -108,9 +119,7 @@ def main() -> None:
         glyph.recalcBounds(None)
         glyphs[symbol.name] = glyph
 
-        g_var |= {
-            symbol.name: [tuple_variation(glyph, v) for v in symbol.variants.items()]
-        }
+        g_var |= {symbol.name: tuple_variations(glyph, symbol.variants)}
 
         h_metrics |= {symbol.name: (FONT_SIZE, glyph.xMin)}
 
