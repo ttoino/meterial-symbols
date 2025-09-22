@@ -13,7 +13,7 @@ A single icon can support potentially infinite progress values seamlessly.
 Simply include the font in your project as you would any other font.
 TrueType and WOFF2 files are provided.
 
-Code-points for different icons can be found in [the symbols file](symbols.py).
+Code-points for different icons can be found in [the symbols file](symbols.json).
 Alternatively, you can use equivalent Material Symbols code-points from [Google Fonts](https://fonts.google.com/icons).
 For example: the `battery` icon can use `U+F0000`, or the code-points for `battery_full`, `battery_0_bar`, `battery_1_bar`, etc., from Material symbols.
 
@@ -105,14 +105,15 @@ python3 -m tox -e lint # or format or typecheck
 
 ### Adding new symbols
 
-To add new symbols just add a new entry to the `SYMBOLS` list in the [`symbols.py`](symbols.py) file.
+To add new symbols just add a new entry to the `SYMBOLS` list in the [`symbols.json`](symbols.json) file, and a new directory with the appropriate name in [`symbols`](symbols).
 
-The parameters are explained in that file, but the gist of it is:
+The parameters are explained in [`__main__.py`](__main__.py), but the gist of it is:
 
 - the `name` parameter can be anything you want, but should be somewhat descriptive;
-- the `path` parameter is an SVG path definition for the default version of the icon (i.e. when `PGRS` is 0). It should fit in a 960x960 square;
-- the `variants` parameter defines the different versions of the icon for different values of `PGRS`. They should all be compatible with the default icon, by having the same number of contours and points in the same order;
-- the `characters` parameter defines the code-points and ligatures that should represent this icon.
+- the `codepoints` parameter defines the code-points that should represent this icon, in hex format;
+- the `ligatures` parameter defines the ligatures that should represent this icon;
+- the `_.svg` file has the SVG path definition for the default version of the icon (i.e. when `PGRS` is 0). It should fit in a 960x960 square;
+- the remaining `<float>.svg` files define the different versions of the icon for different values of `PGRS`. They should all be compatible with the default icon, by having the same number of contours and points in the same order;
 
 ## Planned features
 
@@ -120,3 +121,4 @@ The parameters are explained in that file, but the gist of it is:
 - Ligature support: blocked by `fonttools` not supporting `GSUB` tables.
 - Support for all of Material Symbols' axes; currently all symbols have the default values (i.e. weight = 400, optical size = 24, etc.).
 - Support for all of Material Symbols' styles; currently only *Outlined* is supported.
+- Improve `battery_charging`, maybe using `COLR` tables.
