@@ -1,0 +1,83 @@
+[
+    {
+        "name": "battery",
+        "codepoints": [
+            "0xFF000",
+            "0xE1A4",
+            "0xEBDC",
+            "0xEBD9",
+            "0xEBE0",
+            "0xEBDD",
+            "0xEBE2",
+            "0xEBD4",
+            "0xEBD2"
+        ],
+        "ligatures": [
+            "battery",
+            "battery_full",
+            "battery_0_bar",
+            "battery_1_bar",
+            "battery_2_bar",
+            "battery_3_bar",
+            "battery_4_bar",
+            "battery_5_bar",
+            "battery_6_bar"
+        ]
+    },
+    {
+        "name": "network_cell",
+        "codepoints": [
+            "0xFF001",
+            "0xE1B9",
+            "0xF0A8",
+            "0xF0A9",
+            "0xF0AA",
+            "0xF0AB",
+            "0xE1C8",
+            "0xE1CF"
+        ],
+        "ligatures": [
+            "network_cell",
+            "signal_cellular_0_bar",
+            "signal_cellular_1_bar",
+            "signal_cellular_2_bar",
+            "signal_cellular_3_bar",
+            "signal_cellular_4_bar",
+            "signal_cellular_null"
+        ]
+    },
+    {
+        "name": "network_wifi",
+        "codepoints": [
+            "0xFF002",
+            "0xE1BA",
+            "0xF0B0",
+            "0xEBE4",
+            "0xEBD6",
+            "0xEBE1",
+            "0xE1D8",
+            "0xF067"
+        ],
+        "ligatures": [
+            "network_wifi",
+            "signal_wifi_0_bar",
+            "network_wifi_1_bar",
+            "network_wifi_2_bar",
+            "network_wifi_3_bar",
+            "signal_wifi_4_bar",
+            "signal_wifi_statusbar_null"
+        ]
+    },
+    {
+        "name": "volume",
+        "codepoints": ["0xFF003", "0xE04E", "0xE04D", "0xE79C", "0xE050"],
+        "ligatures": [
+            "volume",
+            "volume_mute",
+            "volume_off",
+            "volume_down",
+            "volume_down_alt",
+            "volume_up"
+        ]
+    }
+]

@@ -15,7 +15,7 @@ dev = [
     { include-group = "ruff" },
     { include-group = "typing" },
 ]
-build = ["fonttools[woff] >= 4.59.1"]
+build = ["dataclasses-json >= 0.6.7", "fonttools[woff] >= 4.59.1"]
 ruff = ["ruff"]
 typing = ["pyright", { include-group = "build" }]
 

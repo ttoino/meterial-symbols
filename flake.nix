@@ -14,6 +14,7 @@
           pyright
           ruff
           (python3.withPackages (pypkgs: with pypkgs; ([
+            dataclasses-json
             fonttools
           ] ++ fonttools.optional-dependencies.woff)))
         ];
