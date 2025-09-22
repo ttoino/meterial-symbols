@@ -79,5 +79,28 @@
             "volume_down_alt",
             "volume_up"
         ]
+    },
+    {
+        "name": "battery_charging",
+        "codepoints": [
+            "0xFF004",
+            "0xE1A3",
+            "0xF0A2",
+            "0xF0A3",
+            "0xF0A4",
+            "0xF0A5",
+            "0xF0A6",
+            "0xF0A7"
+        ],
+        "ligatures": [
+            "battery_charging",
+            "battery_charging_full",
+            "battery_charging_20",
+            "battery_charging_30",
+            "battery_charging_50",
+            "battery_charging_60",
+            "battery_charging_80",
+            "battery_charging_90"
+        ]
     }
 ]
