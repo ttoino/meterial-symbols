@@ -1,7 +1,7 @@
 [project]
 name = "meterial-symbols"
 description = "Material Symbols compatible font for all your meter/progress needs!"
-version = "1.2.0"
+version = "1.3.0"
 readme = "README.md"
 requires-python = ">= 3.13"
 license = "Apache-2.0"
