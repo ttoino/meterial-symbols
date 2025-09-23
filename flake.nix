@@ -11,6 +11,9 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
+          nodejs
+          corepack
+
           pyright
           ruff
           (python3.withPackages (pypkgs: with pypkgs; ([

@@ -1,0 +1,47 @@
+{
+    "name": "meterial-website",
+    "private": true,
+    "version": "0.0.1",
+    "type": "module",
+    "scripts": {
+        "dev": "vite dev",
+        "build": "vite build",
+        "preview": "vite preview",
+        "prepare": "svelte-kit sync || echo ''",
+        "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "format": "prettier --check .",
+        "format:fix": "prettier --write ."
+    },
+    "devDependencies": {
+        "@eslint/compat": "^1.4.0",
+        "@eslint/js": "^9.36.0",
+        "@sveltejs/adapter-static": "^3.0.9",
+        "@sveltejs/kit": "^2.43.2",
+        "@sveltejs/vite-plugin-svelte": "^6.2.0",
+        "@tailwindcss/vite": "^4.1.13",
+        "eslint": "^9.36.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-perfectionist": "^4.15.0",
+        "eslint-plugin-svelte": "^3.12.4",
+        "globals": "^16.4.0",
+        "prettier": "^3.6.2",
+        "prettier-plugin-svelte": "^3.4.0",
+        "prettier-plugin-tailwindcss": "^0.6.14",
+        "svelte": "^5.39.5",
+        "svelte-check": "^4.3.2",
+        "svelte-m3c": "^0.0.5",
+        "tailwindcss": "^4.1.13",
+        "typescript": "^5.9.2",
+        "typescript-eslint": "^8.44.1",
+        "vite": "^7.1.7"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild"
+        ]
+    },
+    "packageManager": "pnpm@10.5.0+sha512.11106a5916c7406fe4b8cb8e3067974b8728f47308a4f5ac5e850304afa6f57e2847d7950dfe78877d8d36bfb401d381c4215db3a4c3547ffa63c14333a6fa51"
+}

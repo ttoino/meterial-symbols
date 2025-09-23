@@ -1,0 +1,20 @@
+@import "svelte-m3c/imports";
+@import "tailwindcss";
+@import "svelte-m3c";
+
+@source "../node_modules/svelte-m3c";
+
+@font-face {
+    font-family: "Meterial Symbols";
+    src:
+        url(/font/MeterialSymbols.woff2) format("woff2"),
+        url(/font/MeterialSymbols.ttf) format("ttf");
+}
+
+@theme {
+    --font-icon: "Meterial Symbols";
+}
+
+.icon {
+    font-variation-settings: "PGRS" var(--progress);
+}
