@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "vite dev",
         "build": "vite build",
-        "postbuild": "svelte-sitemap --domain https://meterial.toino.pt --out-dir .svelte-kit/cloudflare",
+        "postbuild": "svelte-sitemap",
         "preview": "pnpm run build && wrangler pages dev",
         "prepare": "svelte-kit sync || echo ''",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
