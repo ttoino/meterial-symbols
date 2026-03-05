@@ -1,9 +1,9 @@
 {
-    "$schema": "node_modules/wrangler/config-schema.json",
+    "$schema": "website/node_modules/wrangler/config-schema.json",
     "name": "meterial",
     "compatibility_date": "2026-03-02",
     "compatibility_flags": ["nodejs_als", "nodejs_compat"],
-    "pages_build_output_dir": ".svelte-kit/cloudflare",
+    "pages_build_output_dir": "website/.svelte-kit/cloudflare",
     "observability": {
         "enabled": true,
     },
