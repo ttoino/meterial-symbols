@@ -19,6 +19,7 @@
           (python3.withPackages (pypkgs: with pypkgs; ([
             dataclasses-json
             fonttools
+            pytest
           ] ++ fonttools.optional-dependencies.woff)))
         ];
       };

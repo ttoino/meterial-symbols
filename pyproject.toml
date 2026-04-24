@@ -14,10 +14,12 @@ dev = [
     { include-group = "build" },
     { include-group = "ruff" },
     { include-group = "typing" },
+    { include-group = "test" },
 ]
 build = ["dataclasses-json >= 0.6.7", "fonttools[woff] >= 4.59.1"]
 ruff = ["ruff"]
 typing = ["pyright", { include-group = "build" }]
+test = ["pytest >= 8.0", { include-group = "build" }]
 
 [tool.pyright]
 pythonVersion = "3.13"
@@ -34,8 +36,11 @@ target-version = "py311"
 select = ["ALL"]
 ignore = ["COM812", "D203", "D212", "FIX"]
 
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "D103", "PLR2004"]
+
 [tool.tox]
-env_list = ["build", "format", "lint", "typecheck"]
+env_list = ["build", "format", "lint", "typecheck", "test"]
 no_package = true
 
 [tool.tox.env.build]
@@ -53,3 +58,10 @@ commands = [["ruff", "check"]]
 [tool.tox.env.typecheck]
 dependency_groups = ["typing"]
 commands = [["pyright"]]
+
+[tool.tox.env.test]
+dependency_groups = ["test"]
+commands = [["pytest"]]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
