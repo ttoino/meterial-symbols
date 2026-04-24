@@ -1,13 +1,17 @@
 {
     "$schema": "website/node_modules/wrangler/config-schema.json",
     "name": "meterial",
+    "main": "website/.svelte-kit/cloudflare/_worker.js",
     "compatibility_date": "2026-03-02",
     "compatibility_flags": ["nodejs_als", "nodejs_compat"],
-    "pages_build_output_dir": "website/.svelte-kit/cloudflare",
+    "assets": {
+        "directory": "website/.svelte-kit/cloudflare",
+        "binding": "ASSETS",
+        "not_found_handling": "404-page",
+    },
+    "workers_dev": true,
+    "preview_urls": true,
     "observability": {
         "enabled": true,
-    },
-    "vars": {
-        "SKIP_DEPENDENCY_INSTALL": 1,
     },
 }

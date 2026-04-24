@@ -7,7 +7,7 @@
         "dev": "vite dev",
         "build": "vite build",
         "postbuild": "svelte-sitemap",
-        "preview": "pnpm run build && wrangler pages dev",
+        "preview": "pnpm run build && wrangler dev",
         "prepare": "svelte-kit sync || echo ''",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -16,8 +16,8 @@
         "format": "prettier --check .",
         "format:fix": "prettier --write .",
         "gen": "pnpm run gen:cf-types",
-        "gen:cf-types": "wrangler types src/worker-config.d.ts",
-        "deploy": "pnpm run build && wrangler pages deploy"
+        "gen:cf-types": "wrangler types src/worker-configuration.d.ts",
+        "deploy": "pnpm run build && wrangler deploy"
     },
     "devDependencies": {
         "@eslint/compat": "^2.0.3",

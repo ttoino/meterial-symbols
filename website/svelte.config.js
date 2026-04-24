@@ -5,9 +5,7 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 const config = {
     kit: {
         adapter: adapter({
-            routes: {
-                exclude: ["<all>", "/sitemap.xml"],
-            },
+            fallback: "spa",
         }),
     },
     preprocess: vitePreprocess(),
