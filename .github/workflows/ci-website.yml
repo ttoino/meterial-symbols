@@ -23,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@v6
         with:
           package_json_file: website/package.json
       - name: Setup Node.js
@@ -44,7 +44,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@v6
         with:
           package_json_file: website/package.json
       - name: Setup Node.js
@@ -65,7 +65,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@v6
         with:
           package_json_file: website/package.json
       - name: Setup Node.js
@@ -89,7 +89,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@v6
         with:
           package_json_file: website/package.json
       - name: Setup Node.js
