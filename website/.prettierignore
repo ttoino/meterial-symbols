@@ -3,3 +3,6 @@ package-lock.json
 pnpm-lock.yaml
 yarn.lock
 flake.lock
+
+# Copier
+.copier-answers.yml

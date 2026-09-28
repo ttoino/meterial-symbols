@@ -13,7 +13,7 @@ A single icon can support potentially infinite progress values seamlessly.
 Simply include the font in your project as you would any other font.
 TrueType and WOFF2 files are provided.
 
-Code-points for different icons can be found in [the symbols file](symbols.json).
+Code-points for different icons can be found in [the symbols file](src/meterial_symbols/data/symbols.json).
 Alternatively, you can use equivalent Material Symbols code-points from [Google Fonts](https://fonts.google.com/icons).
 For example: the `battery` icon can use `U+F0000`, or the code-points for `battery_full`, `battery_0_bar`, `battery_1_bar`, etc., from Material symbols.
 
@@ -80,14 +80,14 @@ Using Meterial is much simpler, you just need to change the `PGRS` axis on the f
 ## Development
 
 Meterial uses Python and [fonttools](https://github.com/fonttools/fonttools) to generate the font.
-Use `pip` or your favorite package manager to install these dependencies, then move on to the next chapters!
+The project uses [uv](https://docs.astral.sh/uv/) for dependency management.
 
 ### Building
 
-To generate the fonts, just run the [`__main__.py`](__main__.py) file:
+To generate the fonts, run:
 
 ```shell
-python3 __main__.py
+uv run python -m meterial_symbols
 ```
 
 This will create a `dist` folder with a `.ttf` and a `.woff2` file.
@@ -97,17 +97,18 @@ This will create a `dist` folder with a `.ttf` and a `.woff2` file.
 This repository uses ruff and pyright to check the code.
 You should run these tools before pushing your code, to keep the coding style consistent.
 
-You can run these tools directly, through your favorite editor, or using tox:
-
 ```shell
-python3 -m tox -e lint # or format or typecheck
+uv run ruff check .
+uv run ruff format --check .
+uv run pyright
+uv run pytest
 ```
 
 ### Adding new symbols
 
-To add new symbols just add a new entry to the `SYMBOLS` list in the [`symbols.json`](symbols.json) file, and a new directory with the appropriate name in [`symbols`](symbols).
+To add new symbols just add a new entry to the `SYMBOLS` list in the [`symbols.json`](src/meterial_symbols/data/symbols.json) file, and a new directory with the appropriate name in [`symbols`](src/meterial_symbols/data/symbols).
 
-The parameters are explained in [`__main__.py`](__main__.py), but the gist of it is:
+The parameters are explained in [`__main__.py`](src/meterial_symbols/__main__.py), but the gist of it is:
 
 - the `name` parameter can be anything you want, but should be somewhat descriptive;
 - the `codepoints` parameter defines the code-points that should represent this icon, in hex format;

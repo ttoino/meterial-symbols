@@ -1,12 +1,10 @@
 """Tests that all SVG variants for each symbol are structurally compatible."""
 
-from pathlib import Path
-
 import pytest
 
-from font_generator import glyph_from_svg
+from meterial_symbols.font_generator import DATA_DIR, glyph_from_svg
 
-SYMBOLS_DIR = Path("symbols")
+SYMBOLS_DIR = DATA_DIR / "symbols"
 
 
 def _get_symbol_names() -> list[str]:

@@ -7,6 +7,7 @@
     },
     "schedule": ["* 0-3 1 * *"],
     "prConcurrentLimit": 4,
+    "minimumReleaseAge": "1 day",
     "lockFileMaintenance": {
         "enabled": true,
         "automerge": true,
@@ -14,30 +15,25 @@
     },
     "packageRules": [
         {
-            "groupName": "python and nix dependencies",
-            "matchManagers": ["pep621", "nix"],
+            "groupName": "npm and nix dependencies",
+            "matchManagers": ["npm", "nix"],
             "matchUpdateTypes": ["patch", "minor"],
             "automerge": true
         },
         {
-            "groupName": "python and nix dependencies",
-            "matchManagers": ["pep621", "nix"],
+            "groupName": "npm and nix dependencies",
+            "matchManagers": ["npm", "nix"],
             "matchUpdateTypes": ["major"]
         },
         {
-            "groupName": "python and nix dependencies",
-            "matchManagers": ["pep621", "nix"],
-            "matchUpdateTypes": ["major"]
-        },
-        {
-            "groupName": "npm dependencies",
-            "matchManagers": ["npm"],
+            "groupName": "python dependencies",
+            "matchManagers": ["pep621"],
             "matchUpdateTypes": ["patch", "minor"],
             "automerge": true
         },
         {
-            "groupName": "npm dependencies",
-            "matchManagers": ["npm"],
+            "groupName": "python dependencies",
+            "matchManagers": ["pep621"],
             "matchUpdateTypes": ["major"]
         },
         {

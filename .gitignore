@@ -1,7 +1,30 @@
+.direnv
+result
+result-*
+.env
+.env.*
+.venv
+.uv
+uv.lock
 __pycache__/
-.direnv/
-.ruff_cache/
-.tox/
-.vscode/
-node_modules/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
 dist/
+build/
+.tox/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+.ruff_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo

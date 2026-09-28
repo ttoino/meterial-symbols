@@ -1,107 +1,56 @@
 name: CI (Website)
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
+    branches: [main, develop]
     paths:
       - "website/**"
       - ".github/workflows/ci-website.yml"
-  push:
-    branches:
-      - main
-
-defaults:
-  run:
-    working-directory: website
+      - ".github/actions/setup-project/**"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "website/**"
+      - ".github/workflows/ci-website.yml"
+      - ".github/actions/setup-project/**"
 
 jobs:
   format:
     name: Format
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          package_json_file: website/package.json
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./website
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Format
-        run: pnpm run format
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+      - run: pnpm run format
+        working-directory: website
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          package_json_file: website/package.json
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./website
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Lint
-        run: pnpm run lint
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+      - run: pnpm run lint
+        working-directory: website
 
   typecheck:
     name: Typecheck
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          package_json_file: website/package.json
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./website
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Create missing folder
-        run: mkdir dist
-        working-directory: .
-      - name: Typecheck
-        run: pnpm run check
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+      - run: mkdir dist
+      - run: pnpm run gen:cf-types
+        working-directory: website
+      - run: pnpm run check
+        working-directory: website
 
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          package_json_file: website/package.json
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: ./website
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Create missing folder
-        run: mkdir dist
-        working-directory: .
-      - name: Build
-        run: pnpm run build
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+      - run: mkdir dist
+      - run: pnpm run build
+        working-directory: website

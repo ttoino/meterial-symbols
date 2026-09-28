@@ -11,16 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
-      - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/checkout@v4
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: 3.13
-          cache: pip
+          python-version: "3.13"
       - name: Install dependencies
-        run: python -m pip install --upgrade pip tox
+        run: uv sync
       - name: Build font
-        run: python -m tox -e build
+        run: uv run python -m meterial_symbols
       - name: Upload TTF
         uses: actions/upload-release-asset@v1
         env:

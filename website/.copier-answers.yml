@@ -1,0 +1,10 @@
+# Changes here will be overwritten by Copier
+_commit: 17b552e
+_src_path: /home/toino/Projects/github/ttoino/templates
+description: Meterial Symbols website
+name: meterial-website
+project_type: sveltekit
+svelte_m3c: true
+tailwind: true
+tests: false
+

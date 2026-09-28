@@ -13,6 +13,9 @@ from fontTools.svgLib.path import SVGPath
 from fontTools.ttLib.tables._g_l_y_f import Glyph
 from fontTools.ttLib.tables.TupleVariation import TupleVariation
 
+DATA_DIR = Path(__file__).parent / "data"
+"""Directory containing bundled symbol data."""
+
 NAME = "Meterial Symbols"
 """The font name"""
 SAFE_NAME = re.sub(r"\W", "", NAME)
@@ -125,9 +128,15 @@ def tuple_variations(
     return gvar
 
 
-def main() -> None:
+def main(
+    data_dir: Path = DATA_DIR,
+    output_dir: Path = Path("dist"),
+) -> None:
     """Generate the font."""
-    with Path("symbols.json").open(encoding="utf-8") as f:
+    symbols_file = data_dir / "symbols.json"
+    symbols_dir = data_dir / "symbols"
+
+    with symbols_file.open(encoding="utf-8") as f:
         symbols = Symbol.schema().loads(f.read(), many=True)
 
     glyph_order = [""]
@@ -137,7 +146,7 @@ def main() -> None:
     h_metrics = {"": (0, 0)}
 
     for symbol in symbols:
-        base_path = Path(f"symbols/{symbol.name}")
+        base_path = symbols_dir / symbol.name
 
         glyph_order.append(symbol.name)
 
@@ -202,9 +211,9 @@ def main() -> None:
     )
     font.setupPost()
 
-    Path("dist/").mkdir(exist_ok=True)
+    output_dir.mkdir(exist_ok=True)
 
-    font.save(f"dist/{SAFE_NAME}.ttf")
+    font.save(output_dir / f"{SAFE_NAME}.ttf")
 
     font.font.flavor = "woff2"
-    font.save(f"dist/{SAFE_NAME}.woff2")
+    font.save(output_dir / f"{SAFE_NAME}.woff2")

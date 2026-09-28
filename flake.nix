@@ -3,7 +3,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
-  outputs = { nixpkgs, ... }: 
+  outputs =
+    { nixpkgs, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -11,17 +12,19 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
+          python313
+          uv
           nodejs
           corepack
-
-          pyright
-          ruff
-          (python3.withPackages (pypkgs: with pypkgs; ([
-            dataclasses-json
-            fonttools
-            pytest
-          ] ++ fonttools.optional-dependencies.woff)))
         ];
+
+        shellHook = ''
+          export NODE_EXTRA_CA_CERTS="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+          export SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt
+
+          export UV_PYTHON_DOWNLOADS=never
+          export UV_PYTHON="${pkgs.python313}/bin/python3"
+        '';
       };
     };
 }

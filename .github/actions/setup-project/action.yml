@@ -1,0 +1,15 @@
+name: Setup project
+description: Setup pnpm, Node.js, and install website dependencies
+
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/setup@v3
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: pnpm
+        cache-dependency-path: website
+    - run: pnpm install --frozen-lockfile
+      working-directory: website
+      shell: bash

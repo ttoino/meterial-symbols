@@ -1,27 +1,52 @@
 [project]
 name = "meterial-symbols"
-description = "Material Symbols compatible font for all your meter/progress needs!"
 version = "1.3.0"
+description = "Material Symbols compatible font for all your meter/progress needs!"
+requires-python = ">=3.13"
 readme = "README.md"
-requires-python = ">= 3.13"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [{ name = "João Pereira", email = "me@toino.pt" }]
+dependencies = [
+    "dataclasses-json >= 0.6.7",
+    "fonttools[woff] >= 4.59.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pyright==1.1.414",
+    "pytest==9.1.1",
+    "ruff==0.16.9",
+]
 
 [dependency-groups]
 dev = [
-    "tox",
-    { include-group = "build" },
-    { include-group = "ruff" },
-    { include-group = "typing" },
-    { include-group = "test" },
+    "pyright==1.1.414",
+    "pytest==9.1.1",
+    "ruff==0.16.9",
 ]
-build = ["dataclasses-json >= 0.6.7", "fonttools[woff] >= 4.59.1"]
-ruff = ["ruff"]
-typing = ["pyright", { include-group = "build" }]
-test = ["pytest >= 8.0", { include-group = "build" }]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/meterial_symbols"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
 
 [tool.pyright]
+include = ["src"]
+exclude = ["tests"]
 pythonVersion = "3.13"
 typeCheckingMode = "standard"
 # Not all dependencies have type hints:
@@ -29,39 +54,6 @@ reportMissingTypeStubs = false
 # Already covered by ruff's flake8-self checks:
 reportPrivateImportUsage = false
 
-[tool.ruff]
-target-version = "py311"
-
-[tool.ruff.lint]
-select = ["ALL"]
-ignore = ["COM812", "D203", "D212", "FIX"]
-
-[tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S101", "D103", "PLR2004"]
-
-[tool.tox]
-env_list = ["build", "format", "lint", "typecheck", "test"]
-no_package = true
-
-[tool.tox.env.build]
-dependency_groups = ["build"]
-commands = [["python", "__main__.py"]]
-
-[tool.tox.env.format]
-dependency_groups = ["ruff"]
-commands = [["ruff", "format", "--check"]]
-
-[tool.tox.env.lint]
-dependency_groups = ["ruff"]
-commands = [["ruff", "check"]]
-
-[tool.tox.env.typecheck]
-dependency_groups = ["typing"]
-commands = [["pyright"]]
-
-[tool.tox.env.test]
-dependency_groups = ["test"]
-commands = [["pytest"]]
-
 [tool.pytest.ini_options]
-pythonpath = ["."]
+testpaths = ["tests"]
+pythonpath = ["src"]

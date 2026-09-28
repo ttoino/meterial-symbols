@@ -1,38 +1,63 @@
 # AGENTS.md
 
-This repo contains a Python font generator (root) and a SvelteKit website (`website/`). They are isolated: CI ignores `website/**` for the Python project, and vice versa.
+This repo contains a Python font generator at the root and a SvelteKit website in `website/`. They are isolated: the root Python CI ignores `website/**`, and the website CI ignores root Python changes.
+
+For website-specific instructions, see `website/AGENTS.md`.
 
 ## Python project
 
-- **Runtime:** Python >= 3.13
-- **Entrypoint:** `__main__.py` reads `symbols.json` and SVGs from `symbols/`, writes `dist/MeterialSymbols.{ttf,woff2}`
-- **Dev env:** Nix flake available (`nix develop` or direnv); installs Python deps, Node, ruff, pyright, pytest
-- **Task runner:** `tox` (configured in `pyproject.toml`)
-  - `python -m tox -e format` — ruff format check
-  - `python -m tox -e lint` — ruff lint
-  - `python -m tox -e typecheck` — pyright
-  - `python -m tox -e test` — pytest
-  - `python -m tox -e build` — runs `python __main__.py`
-- **Direct commands also work:** `ruff check .`, `ruff format --check .`, `pyright`, `pytest`, `python3 __main__.py`
-- **Tests exist** in `tests/` (13 tests). Run with `pytest` or `python -m tox -e test`.
-- **Adding symbols:** add entry to `symbols.json`, create `symbols/<name>/` with `_.svg` (default) and `<float>.svg` variants. All SVG variants must have the same number of contours and points in the same order (see `README.md` for constraints).
+**Type**: Python package (hatchling build backend)
+**Runtime**: Python >= 3.13
+**Package manager**: uv
+**Layout**: `src/meterial_symbols/`
 
-## Website (`website/`)
+### Development environment
 
-- **Stack:** Svelte 5 + SvelteKit 2 + Vite + TypeScript + Tailwind CSS v4, deployed to Cloudflare Workers
-- **Package manager:** pnpm (pinned to 10.5.0 in `packageManager`). Always use `pnpm`.
-- **Node:** 22
-- **Key scripts:**
-  - `pnpm dev` — dev server
-  - `pnpm build` — production build
-  - `pnpm check` — svelte-kit sync + svelte-check
-  - `pnpm lint` — eslint
-  - `pnpm format` — prettier check
-  - `pnpm run deploy` — build + wrangler deploy
-- **Build quirk:** `website/static/font` is a symlink to `../../dist`. The website build will fail if `dist/` does not exist at repo root. CI creates it with `mkdir dist` before `pnpm check` and `pnpm build`.
-- **Config:** `wrangler.jsonc` lives at repo root, not in `website/`
+A Nix flake is present for local dev. If using direnv, it loads automatically:
+
+```bash
+direnv allow
+```
+
+Otherwise:
+
+```bash
+nix develop
+```
+
+### Commands
+
+- `uv sync` — install dependencies and the package in editable mode
+- `uv run ruff check .` — lint
+- `uv run ruff format --check .` — format check
+- `uv run pyright` — typecheck
+- `uv run pytest` — run tests
+- `uv run python -m meterial_symbols` — generate the font
+
+### Layout
+
+- `src/meterial_symbols/__init__.py` — package metadata
+- `src/meterial_symbols/font_generator.py` — font generation logic
+- `src/meterial_symbols/data/symbols.json` — symbol metadata
+- `src/meterial_symbols/data/symbols/` — SVG assets
+- `tests/` — pytest test suite
+- `dist/` — generated font output (gitignored)
+
+### Adding new symbols
+
+Add a new entry to `src/meterial_symbols/data/symbols.json` and create a directory with the same name under `src/meterial_symbols/data/symbols/`. Each symbol needs:
+
+- `_.svg` — default glyph (at `PGRS = 0`)
+- `<float>.svg` — variant glyphs for other axis values
+
+All SVG variants for a symbol must have the same number of contours and points in the same order.
+
+## Dependency automation
+
+This project uses **Renovate**. Renovate opens a single monthly PR grouping npm, Nix, Python, and GitHub Actions updates. Patch and minor devDependencies are auto-merged.
 
 ## Gotchas
 
-- `dist/` is gitignored but is the font build output. It must exist for website builds because `website/static/font` symlinks to it.
-- The release workflow (`cd.yml`) builds fonts via tox and uploads `dist/` assets to GitHub releases.
+- `dist/` is gitignored but required for website builds because of the `website/static/font` symlink.
+- The release workflow (`cd.yml`) builds fonts via `uv` and uploads `dist/` assets to GitHub releases.
+- `wrangler.jsonc` lives at the repo root, not in `website/`.

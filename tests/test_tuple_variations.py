@@ -3,7 +3,7 @@
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib.tables._g_l_y_f import Glyph
 
-from font_generator import AXIS_TAG, tuple_variations
+from meterial_symbols.font_generator import AXIS_TAG, tuple_variations
 
 
 def _square_glyph() -> Glyph:

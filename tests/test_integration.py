@@ -4,10 +4,9 @@ import json
 from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
-import pytest
 from fontTools.ttLib import TTFont
 
-from font_generator import main
+from meterial_symbols.font_generator import main
 
 if TYPE_CHECKING:
     from fontTools.ttLib.tables._c_m_a_p import table__c_m_a_p
@@ -35,12 +34,8 @@ VARIANT_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960
 </svg>"""
 
 
-def test_main_builds_valid_font(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_main_builds_valid_font(tmp_path: Path) -> None:
     """End-to-end build produces a well-formed variable font."""
-    monkeypatch.chdir(tmp_path)
-
     # Create minimal project structure
     symbols_dir = tmp_path / "symbols" / "test_square"
     symbols_dir.mkdir(parents=True)
@@ -48,7 +43,7 @@ def test_main_builds_valid_font(
     (symbols_dir / "_.svg").write_text(BASE_SVG)
     (symbols_dir / "1.svg").write_text(VARIANT_SVG)
 
-    main()
+    main(data_dir=tmp_path, output_dir=tmp_path / "dist")
 
     ttf_path = tmp_path / "dist" / "MeterialSymbols.ttf"
     woff2_path = tmp_path / "dist" / "MeterialSymbols.woff2"
